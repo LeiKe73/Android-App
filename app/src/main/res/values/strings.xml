@@ -1,0 +1,30 @@
+<resources>
+    <string name="app_name">App_recycleview</string>
+
+    <string-array name="catText">
+        <item>oiioio</item>
+        <item>耄耋</item>
+        <item>塔塔开</item>
+        <item>灵感菇</item>
+        <item>巴巴博一</item>
+        <item>震惊.JPG</item>
+        <item>test_image1</item>
+        <item>test_image2</item>
+        <item>test_image3</item>
+    </string-array>
+    <integer-array name="catImage">
+
+    </integer-array>
+    <string-array name="date">
+        <item>2024–04-10</item>
+        <item>2024-04-08</item>
+        <item>2024-05-14</item>
+        <item>2024-08-11</item>
+        <item>2024-07-17</item>
+        <item>2024-09-29</item>
+        <item>2024-11-22</item>
+        <item>2024-10-19</item>
+        <item>2024-12-18</item>
+    </string-array>
+
+</resources>
