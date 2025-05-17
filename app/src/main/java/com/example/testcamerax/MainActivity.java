@@ -5,7 +5,11 @@ import android.Manifest;
 import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.content.pm.PackageManager;
+<<<<<<< HEAD
 
+=======
+import android.media.MediaScannerConnection;
+>>>>>>> 99b6327acc0f8a2c76738bc2a23024024dbd19bb
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -14,8 +18,11 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+<<<<<<< HEAD
 
 import android.widget.TextView;
+=======
+>>>>>>> 99b6327acc0f8a2c76738bc2a23024024dbd19bb
 import android.widget.Toast;
 import androidx.activity.EdgeToEdge;
 import androidx.activity.result.ActivityResultCallback;
@@ -24,47 +31,65 @@ import androidx.activity.result.IntentSenderRequest;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.camera.core.CameraSelector;
+<<<<<<< HEAD
 
 import androidx.camera.core.ImageCapture;
 import androidx.camera.core.ImageCaptureException;
 
+=======
+import androidx.camera.core.ImageCapture;
+import androidx.camera.core.ImageCaptureException;
+>>>>>>> 99b6327acc0f8a2c76738bc2a23024024dbd19bb
 import androidx.camera.view.LifecycleCameraController;
 import androidx.camera.view.PreviewView;
 import androidx.core.content.ContextCompat;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+<<<<<<< HEAD
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.mlkit.vision.common.InputImage;
+=======
+>>>>>>> 99b6327acc0f8a2c76738bc2a23024024dbd19bb
 import com.google.mlkit.vision.documentscanner.GmsDocumentScanner;
 import com.google.mlkit.vision.documentscanner.GmsDocumentScannerOptions;
 import com.google.mlkit.vision.documentscanner.GmsDocumentScanning;
 import com.google.mlkit.vision.documentscanner.GmsDocumentScanningResult;
+<<<<<<< HEAD
 import com.google.mlkit.vision.text.Text;
 import com.google.mlkit.vision.text.TextRecognition;
 import com.google.mlkit.vision.text.TextRecognizer;
 
 import com.google.mlkit.vision.text.chinese.ChineseTextRecognizerOptions;
 
+=======
+>>>>>>> 99b6327acc0f8a2c76738bc2a23024024dbd19bb
 import org.jspecify.annotations.NonNull;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+<<<<<<< HEAD
 import java.util.List;
+=======
+>>>>>>> 99b6327acc0f8a2c76738bc2a23024024dbd19bb
 
 
 public class MainActivity extends AppCompatActivity {
     private static final String FULL_MODE = "FULL";
     private static final String BASE_MODE = "BASE";
     private static final String BASE_MODE_WITH_FILTER = "BASE_WITH_FILTER";
+<<<<<<< HEAD
     // 在 Activity 类中添加以下成员变量
     private  GraphicOverlay mGraphicOverlay;
 
 
+=======
+    private String selectedMode = FULL_MODE;
+>>>>>>> 99b6327acc0f8a2c76738bc2a23024024dbd19bb
 
     //声明位置在onCreate之前
     //初始化一般放在回调函数内，这里特殊
@@ -130,7 +155,10 @@ public class MainActivity extends AppCompatActivity {
                         .setPageLimit(2)
                         .setResultFormats(RESULT_FORMAT_JPEG);// ,RESULT_FORMAT_PDF
         //模式切换
+<<<<<<< HEAD
         String selectedMode = FULL_MODE;
+=======
+>>>>>>> 99b6327acc0f8a2c76738bc2a23024024dbd19bb
         switch (selectedMode) {
             case FULL_MODE:
                 builder.setScannerMode(GmsDocumentScannerOptions.SCANNER_MODE_FULL);
@@ -159,7 +187,11 @@ public class MainActivity extends AppCompatActivity {
 
                                     Toast.makeText(
                                             MainActivity.this,
+<<<<<<< HEAD
                                             "文件Uri:" + imageUri, // 显示完整路径
+=======
+                                            "文件Uri:" + imageUri.toString(), // 显示完整路径
+>>>>>>> 99b6327acc0f8a2c76738bc2a23024024dbd19bb
                                             Toast.LENGTH_LONG
                                     ).show();
 
@@ -230,12 +262,15 @@ public class MainActivity extends AppCompatActivity {
         controller.setCameraSelector(CameraSelector.DEFAULT_BACK_CAMERA);
         previewView.setController(controller);
 
+<<<<<<< HEAD
         //使用中文识别
         TextRecognizer recognizer =
           TextRecognition.getClient(new ChineseTextRecognizerOptions.Builder().build());
 
         mGraphicOverlay = findViewById(R.id.graphic_overlay);
 
+=======
+>>>>>>> 99b6327acc0f8a2c76738bc2a23024024dbd19bb
         //点击按钮拍照
         Button btn = findViewById(R.id.cameraX);
         btn.setOnClickListener(new View.OnClickListener() {
@@ -246,14 +281,32 @@ public class MainActivity extends AppCompatActivity {
                 Uri imageCollection = MediaStore.Images.Media.getContentUri(MediaStore.VOLUME_EXTERNAL_PRIMARY);
                 ContentValues newImageDetails = new ContentValues();
                 newImageDetails.put(MediaStore.Images.Media.DISPLAY_NAME, makeFileName());
+<<<<<<< HEAD
                 newImageDetails.put(MediaStore.Images.Media.MIME_TYPE, "image/jpeg");
                 newImageDetails.put(MediaStore.Images.Media.RELATIVE_PATH, Environment.DIRECTORY_DCIM + "/Camera");
 
 
+=======
+                Uri newImageUri = resolver.insert(imageCollection, newImageDetails);// 这一行代码可选，得到新图像的Uri可以让你在拍照成功后使用newImageUri变量来访问图像
+
+
+                //提示信息
+                if (newImageUri == null) {
+                    Toast.makeText(MainActivity.this, "创建文件失败", Toast.LENGTH_SHORT).show();
+                    return;
+                }else{
+                    Toast.makeText(
+                            MainActivity.this,
+                            "文件Uri:" + newImageUri.toString(), // 显示完整路径
+                            Toast.LENGTH_LONG
+                    ).show();
+                }
+>>>>>>> 99b6327acc0f8a2c76738bc2a23024024dbd19bb
 
                 ImageCapture.OutputFileOptions options =
                         new ImageCapture.OutputFileOptions.Builder(resolver, imageCollection, newImageDetails)
                                 .build();
+<<<<<<< HEAD
                 controller.takePicture(
                         new ImageCapture.OutputFileOptions.Builder(resolver, imageCollection, newImageDetails).build(),
                         ContextCompat.getMainExecutor(MainActivity.this),
@@ -336,4 +389,43 @@ public class MainActivity extends AppCompatActivity {
         SimpleDateFormat sdf =  new SimpleDateFormat("yyMMdd_HHmmss_SSS");
         return "IMG_" + sdf.format(date)+".jpg";
     }
+=======
+                controller.takePicture(options,
+                            ContextCompat.getMainExecutor(v.getContext()),
+                            new ImageCapture.OnImageSavedCallback() {
+                                @Override
+                                public void onImageSaved(ImageCapture.@NonNull OutputFileResults outputFileResults) {
+                                    // 使用实际保存的 Uri
+                                    Uri savedUri = outputFileResults.getSavedUri();
+                                    if (savedUri != null) {
+                                        // 触发媒体扫描
+                                        MediaScannerConnection.scanFile(
+                                                MainActivity.this,
+                                                new String[]{savedUri.getPath()},
+                                                new String[]{"image/jpeg"},
+                                                (path, uri) -> {
+                                                    runOnUiThread(() -> {
+                                                        ImageView imageView = findViewById(R.id.photo_result);
+                                                        imageView.setImageURI(uri);
+                                                    });
+                                                }
+                                        );
+                                    }
+                                }
+                                @Override
+                                public void onError(@NonNull ImageCaptureException exception) {
+                                    Log.e("CameraX", "拍照失败: " + exception.getMessage());
+                                }
+                            });
+                }
+        });
+    }
+
+    private String makeFileName(){
+        Date date = new Date(System.currentTimeMillis());
+        SimpleDateFormat sdf =  new SimpleDateFormat("yyMMdd_HHmmss");
+        return "IMG_" + sdf.format(date)+".jpg";
+    }
+
+>>>>>>> 99b6327acc0f8a2c76738bc2a23024024dbd19bb
 }

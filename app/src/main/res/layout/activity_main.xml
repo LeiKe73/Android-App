@@ -11,6 +11,7 @@
         android:id="@+id/preview_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+<<<<<<< HEAD
         />
 
 
@@ -25,6 +26,17 @@
         android:layout_height="400dp"
         android:layout_gravity="left"
         android:scaleType="fitStart"/>
+=======
+        tools:ignore="MissingClass"/>
+
+    <ImageView
+        android:id="@+id/photo_result"
+        android:layout_width="300dp"
+        android:layout_height="match_parent"
+        android:scaleType="fitStart"
+        android:adjustViewBounds="true"
+        />
+>>>>>>> 99b6327acc0f8a2c76738bc2a23024024dbd19bb
 
     <Button
         android:id="@+id/scanner"
@@ -42,6 +54,7 @@
         android:text="TAKE PHOTO"
         android:textSize="24sp" />
 
+<<<<<<< HEAD
     <TextView
         android:id="@+id/get_Text"
         android:layout_width="match_parent"
@@ -52,4 +65,6 @@
         android:textColor="@color/black"
         android:textSize="30dp" />
 
+=======
+>>>>>>> 99b6327acc0f8a2c76738bc2a23024024dbd19bb
 </FrameLayout>

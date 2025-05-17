@@ -8,9 +8,12 @@
     <uses-permission android:name="android.permission.CAMERA"/>
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"
         android:maxSdkVersion="28" /> <!-- 仅适配旧系统 -->
+<<<<<<< HEAD
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"
         android:maxSdkVersion="28"/>
 
+=======
+>>>>>>> 99b6327acc0f8a2c76738bc2a23024024dbd19bb
 
     <application
         android:allowBackup="true"
