@@ -21,8 +21,8 @@ public class TextGraphic extends GraphicOverlay.Graphic {
         rectPaint.setStrokeWidth(4.0f);
 
         textPaint = new Paint();
-        textPaint.setColor(Color.BLUE);
-        textPaint.setTextSize(48f);
+        textPaint.setColor(Color.GREEN);
+        textPaint.setTextSize(40.0f);
     }
 
     @Override

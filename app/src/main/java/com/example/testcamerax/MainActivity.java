@@ -5,8 +5,7 @@ import android.Manifest;
 import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.content.pm.PackageManager;
-import android.media.Image;
-import android.media.MediaScannerConnection;
+
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -15,6 +14,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+
 import android.widget.TextView;
 import android.widget.Toast;
 import androidx.activity.EdgeToEdge;
@@ -24,10 +24,10 @@ import androidx.activity.result.IntentSenderRequest;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.camera.core.CameraSelector;
-import androidx.camera.core.ImageAnalysis;
+
 import androidx.camera.core.ImageCapture;
 import androidx.camera.core.ImageCaptureException;
-import androidx.camera.core.ImageProxy;
+
 import androidx.camera.view.LifecycleCameraController;
 import androidx.camera.view.PreviewView;
 import androidx.core.content.ContextCompat;
@@ -45,7 +45,7 @@ import com.google.mlkit.vision.documentscanner.GmsDocumentScanningResult;
 import com.google.mlkit.vision.text.Text;
 import com.google.mlkit.vision.text.TextRecognition;
 import com.google.mlkit.vision.text.TextRecognizer;
-import com.google.mlkit.vision.text.TextRecognizerOptionsInterface;
+
 import com.google.mlkit.vision.text.chinese.ChineseTextRecognizerOptions;
 
 import org.jspecify.annotations.NonNull;
@@ -61,7 +61,6 @@ public class MainActivity extends AppCompatActivity {
     private static final String FULL_MODE = "FULL";
     private static final String BASE_MODE = "BASE";
     private static final String BASE_MODE_WITH_FILTER = "BASE_WITH_FILTER";
-    private String selectedMode = FULL_MODE;
     // 在 Activity 类中添加以下成员变量
     private  GraphicOverlay mGraphicOverlay;
 
@@ -131,6 +130,7 @@ public class MainActivity extends AppCompatActivity {
                         .setPageLimit(2)
                         .setResultFormats(RESULT_FORMAT_JPEG);// ,RESULT_FORMAT_PDF
         //模式切换
+        String selectedMode = FULL_MODE;
         switch (selectedMode) {
             case FULL_MODE:
                 builder.setScannerMode(GmsDocumentScannerOptions.SCANNER_MODE_FULL);
@@ -159,7 +159,7 @@ public class MainActivity extends AppCompatActivity {
 
                                     Toast.makeText(
                                             MainActivity.this,
-                                            "文件Uri:" + imageUri.toString(), // 显示完整路径
+                                            "文件Uri:" + imageUri, // 显示完整路径
                                             Toast.LENGTH_LONG
                                     ).show();
 
@@ -304,6 +304,7 @@ public class MainActivity extends AppCompatActivity {
                         @Override
                         public void onFailure(@NonNull Exception e) {
                             Log.e("MLKit", "识别失败: " + e.getMessage());
+                            e.printStackTrace();
                         }
                     });
      }
@@ -311,12 +312,20 @@ public class MainActivity extends AppCompatActivity {
     // 处理识别结果（绘制文本框）
     private void processTextRecognitionResult(Text texts) {
         Log.d("MLKit", "识别到文本块数量: " + texts.getTextBlocks().size());
+        List<Text.TextBlock> blocks = texts.getTextBlocks();
+        if (blocks.isEmpty()) {
+            Toast.makeText(this,"No text found",Toast.LENGTH_LONG).show();
+            return;
+        }
         mGraphicOverlay.clear();
-        for (Text.TextBlock block : texts.getTextBlocks()) {
-            for (Text.Line line : block.getLines()) {
-                for (Text.Element element : line.getElements()) {
-                    TextGraphic textGraphic = new TextGraphic(mGraphicOverlay, element);
+        for (int i = 0; i < blocks.size(); i++) {
+            List<Text.Line> lines = blocks.get(i).getLines();
+            for (int j = 0; j < lines.size(); j++) {
+                List<Text.Element> elements = lines.get(j).getElements();
+                for (int k = 0; k < elements.size(); k++) {
+                    GraphicOverlay.Graphic textGraphic = new TextGraphic(mGraphicOverlay, elements.get(k));
                     mGraphicOverlay.add(textGraphic);
+
                 }
             }
         }
